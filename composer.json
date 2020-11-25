@@ -24,13 +24,7 @@
   "autoload": {
     "psr-0": {},
     "psr-4": {
-      "Rosatom\\Common\\": "src/modules/common",
-      "Rosatom\\FinReport\\": "src/modules/FinReport/src/",
-      "Rosatom\\Converters\\": "src/modules/Converters/src/",
-      "Rosatom\\Reports\\": "src/modules/Reports/src/",
-      "Rosatom\\Auth\\": "src/modules/Auth/src/",
-      "Rosatom\\User\\": "src/modules/User/src/",
-      "Rosatom\\RateCurrencies\\": "src/modules/RateCurrencies/src"
+      "Rosatom\\Common\\": "src/modules/common"
     }
   },
   "scripts": {
