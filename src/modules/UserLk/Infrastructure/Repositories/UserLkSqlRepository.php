@@ -66,6 +66,7 @@ class UserLkSqlRepository implements IUserLkSqlRepository
     public function getUsersList(): array
     {
         $sql =  "SELECT
+                    e.id,
                     u.name,
                     u.surname,
                     u.patronymic,
