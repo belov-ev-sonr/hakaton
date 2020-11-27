@@ -6,12 +6,13 @@ use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use UserLk\Infrastructure\Repositories\UserLkSqlRepository;
-use UserLk\Infrastructure\TransferData\UserRoleTransferData;
+use UserLk\Application\Service\UserInfoService;
 
 class UserLkRouter
 {
     public function __construct(App $app)
     {
+        $app->get('/getUserRole/{id}', [$this, 'getUserRole']);
         $app->get('/getUserInfo/{id}', [$this, 'getUserInfo']);
         $app->get('/hello', [$this, 'getHello']);
     }
@@ -20,7 +21,16 @@ class UserLkRouter
     {
         $idUser = $request->getAttribute('id');
         $repository = new UserLkSqlRepository();
-        $data = $repository->getUserInfo($idUser);
+        $service = new UserInfoService();
+        $data = $service->getInfo($repository->getUserInfo($idUser)[0]);
+        return $response->withJson($data);
+    }
+
+    public function getUserRole(Request $request, Response $response)
+    {
+        $idUser = $request->getAttribute('id');
+        $repository = new UserLkSqlRepository();
+        $data = $repository->getUserRole($idUser);
         return $response->withJson($data[0]);
     }
 
