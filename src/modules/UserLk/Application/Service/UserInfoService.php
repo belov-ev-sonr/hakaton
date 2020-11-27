@@ -7,6 +7,25 @@ use DateTime;
 
 class UserInfoService
 {
+    public function getUserList($data)
+    {
+        $res = [];
+        foreach ($data as $row)
+        {
+            $res['roleNumber']      = $row['id'];
+            $res['name']            = $row['name'];
+            $res['surname']         = $row['surname'];
+            $res['patronymic']      = $row['patronymic'];
+            $res['patronymic']      = $row['patronymic'];
+            $res['position']        = $row['name_position'];
+            $res['structuralUnits'] = $row['structural_units'];
+            $res['education']       = $row['education'];
+            $res['roleName']        = $row['name_role'];
+        }
+
+        return $res;
+    }
+
     public function getInfo($data): array
     {
         $date = new DateTime($data['date_of_employment']);

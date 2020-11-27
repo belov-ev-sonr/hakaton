@@ -12,9 +12,10 @@ class UserLkRouter
 {
     public function __construct(App $app)
     {
-        $app->get('/getUserRole/{id}', [$this, 'getUserRole']);
-        $app->get('/getUserInfo/{id}', [$this, 'getUserInfo']);
-        $app->get('/hello', [$this, 'getHello']);
+        $app->get('/getUserRole/{id}',  [$this, 'getUserRole']);
+        $app->get('/getUserInfo/{id}',  [$this, 'getUserInfo']);
+        $app->get('/getUsersList',      [$this, 'getUsersList']);
+        $app->get('/hello',             [$this, 'getHello']);
     }
 
     public function getUserInfo(Request $request, Response $response)
@@ -32,6 +33,14 @@ class UserLkRouter
         $repository = new UserLkSqlRepository();
         $data = $repository->getUserRole($idUser);
         return $response->withJson($data[0]);
+    }
+
+    public function getUsersList(Request $request, Response $response)
+    {
+        $repository = new UserLkSqlRepository();
+        $service = new UserInfoService();
+        $data = $service->getUserList($repository->getUsersList());
+        return $response->withJson($repository->getUsersList());
     }
 
     public function getHello(Request $request, Response $response)
