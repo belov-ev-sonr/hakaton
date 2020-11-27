@@ -24,7 +24,8 @@
   "autoload": {
     "psr-0": {},
     "psr-4": {
-      "Rosatom\\Common\\": "src/modules/common"
+      "Rosseti\\Common\\": "src/modules/common",
+      "UserLk\\": "src/modules/UserLk"
     }
   },
   "scripts": {

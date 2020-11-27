@@ -1,5 +1,5 @@
 <?php
-namespace Rosatom\Common;
+namespace Rosseti\Common;
 
 use mysqli;
 
