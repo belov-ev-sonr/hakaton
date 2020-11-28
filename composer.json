@@ -28,6 +28,7 @@
       "ApplicationCrud\\": "src/modules/ApplicationCrud",
       "OtherRoute\\": "src/modules/OtherRout",
       "Autorization\\": "src/modules/Autorization",
+      "ApplicationExpert\\": "src/modules/ApplicationExpert",
       "UserLk\\": "src/modules/UserLk"
     }
   },

@@ -7,6 +7,7 @@ use UserLk\UserLkRouter;
 use ApplicationCrud\ApplicationRout;
 use OtherRoute\OtherRout;
 use Autorization\AutorizationRout;
+use ApplicationExpert\ApplicationExpertRout;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/vendor/autoload.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/modules/common/enableCors.php';
@@ -32,6 +33,9 @@ $app->group('', function () use ($app) {
     });
     $app->group('/autorization', function () {
         return new AutorizationRout($this);
+    });
+    $app->group('/applicationExpert', function () {
+        return new ApplicationExpertRout($this);
     });
 });
 try {

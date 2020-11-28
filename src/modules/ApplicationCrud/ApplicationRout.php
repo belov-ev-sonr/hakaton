@@ -15,7 +15,6 @@ class ApplicationRout
         $app->post('/updApplication/{id}',      [$this, 'updApplication']);
         $app->get('/getUserApplications/{id}',  [$this, 'getUserApplications']);
         $app->get('/getApplication/{id}',       [$this, 'getApplication']);
-
     }
 
     public function getApplication(Request $request, Response $response)

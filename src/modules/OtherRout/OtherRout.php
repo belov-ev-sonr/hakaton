@@ -16,6 +16,7 @@ class OtherRout
         $app->get('/getSecondExpert/{id}',  [$this, 'getSecondExpert']);
         $app->get('/getSuperExpert/{id}',   [$this, 'getSuperExpert']);
         $app->get('/getImplementor/{id}',   [$this, 'getImplementor']);
+        $app->get('/getSendingProposals/',  [$this, 'getSendingProposals']);
 
     }
 
@@ -51,5 +52,11 @@ class OtherRout
         $id = $request->getAttribute('id');
         $repository = new OtherSqlRepository();
         return $response->withJson($repository->getImplementor($id)[0]);
+    }
+
+    public function getSendingProposals(Request $request, Response $response)
+    {
+        $repository = new OtherSqlRepository();
+        return $response->withJson($repository->getSendingProposals());
     }
 }

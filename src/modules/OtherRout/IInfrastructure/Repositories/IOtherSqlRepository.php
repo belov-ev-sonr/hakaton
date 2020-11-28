@@ -8,4 +8,5 @@ interface IOtherSqlRepository
 {
     public function getDigitalCategory(): array;
     public function getFirstExpert($id): array;
+    public function getSendingProposals(): array;
 }

@@ -102,4 +102,12 @@ class OtherSqlRepository implements IOtherSqlRepository
                 ORDER BY las.date_upd DESC";
         return $this->getDbCon()->select($sql);
     }
+
+    public function getSendingProposals(): array
+    {
+        $sql = "SELECT
+                 *
+                FROM hakaton.sending_proposals";
+        return $this->getDbCon()->select($sql);
+    }
 }
