@@ -83,7 +83,8 @@ class UserLkSqlRepository implements IUserLkSqlRepository
                     ed.name as education,
                     e.date_of_employment as employment,
                     r.name_role as roleName,
-                    r.id as roleNumber
+                    r.id as roleNumber,
+                    u.is_active active
                 FROM hakaton.employees e
                 JOIN hakaton.users u ON u.id=e.user_id
                 JOIN hakaton.positions p ON e.position_id=p.id
