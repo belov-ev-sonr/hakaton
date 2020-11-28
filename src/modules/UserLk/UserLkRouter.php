@@ -12,10 +12,30 @@ class UserLkRouter
 {
     public function __construct(App $app)
     {
-        $app->get('/getUserRole/{id}',  [$this, 'getUserRole']);
-        $app->get('/getUserInfo/{id}',  [$this, 'getUserInfo']);
-        $app->get('/getUsersList',      [$this, 'getUsersList']);
-        $app->get('/hello',             [$this, 'getHello']);
+        $app->get('/getUserRole/{id}',          [$this, 'getUserRole']);
+        $app->get('/getUserInfo/{id}',          [$this, 'getUserInfo']);
+        $app->get('/getUsersList',              [$this, 'getUsersList']);
+        $app->get('/getPositionsList',          [$this, 'getPositionsList']);
+        $app->get('/getStructuralUnitsList',    [$this, 'getStructuralUnitsList']);
+        $app->get('/getEducationList',          [$this, 'getEducationList']);
+    }
+
+    public function getPositionsList(Request $request, Response $response)
+    {
+        $repository = new UserLkSqlRepository();
+        return $response->withJson($repository->getPositionsList());
+    }
+
+    public function getStructuralUnitsList(Request $request, Response $response)
+    {
+        $repository = new UserLkSqlRepository();
+        return $response->withJson($repository->getStructuralUnitsList());
+    }
+
+    public function getEducationList(Request $request, Response $response)
+    {
+        $repository = new UserLkSqlRepository();
+        return $response->withJson($repository->getEducationList());
     }
 
     public function getUserInfo(Request $request, Response $response)
@@ -38,8 +58,6 @@ class UserLkRouter
     public function getUsersList(Request $request, Response $response)
     {
         $repository = new UserLkSqlRepository();
-        $service = new UserInfoService();
-        $data = $service->getUserList($repository->getUsersList());
         return $response->withJson($repository->getUsersList());
     }
 

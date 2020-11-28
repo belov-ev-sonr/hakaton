@@ -34,9 +34,9 @@ class UserLkSqlRepository implements IUserLkSqlRepository
                     u.name,
                     u.surname,
                     u.patronymic,
-                    p.name_position,
-                    su.full_name as structural_units,
-                    ed.name as education,
+                    p.id as positions,
+                    su.id as structural_units,
+                    ed.id as education,
                     e.date_of_employment
                 FROM hakaton.employees e
                 JOIN hakaton.users u ON u.id=e.user_id
@@ -83,6 +83,33 @@ class UserLkSqlRepository implements IUserLkSqlRepository
                 JOIN hakaton.education ed ON ed.id=e.education_id
                 JOIN hakaton.user_to_role utr ON utr.id_user=u.id
                 JOIN hakaton.role r ON r.id=utr.id_role";
+        return $this->getDbCon()->select($sql);
+    }
+
+    public function getPositionsList(): array
+    {
+        $sql =  "SELECT
+                    id,
+                    name_position as position
+                FROM hakaton.positions";
+        return $this->getDbCon()->select($sql);
+    }
+
+    public function getStructuralUnitsList(): array
+    {
+        $sql =  "SELECT
+                    id,
+                    full_name as structuralUnit
+                FROM hakaton.structural_units";
+        return $this->getDbCon()->select($sql);
+    }
+
+    public function getEducationList(): array
+    {
+        $sql =  "SELECT
+                    id,
+                    name as education
+                FROM hakaton.education";
         return $this->getDbCon()->select($sql);
     }
 }
