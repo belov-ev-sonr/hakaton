@@ -68,7 +68,7 @@ class ApplicationService
         $ApplicationInfo['users'] = $this->getRepository()->getApplicationToUser($id);
         $ApplicationInfo['idDigitalCategory'] = $this->getRepository()->getApplicationToDigital($id)[0]['digitalCat'];
         $ApplicationInfo['expenditures'] = $this->getRepository()->getExpenditures($id);
-        $ApplicationInfo['termsForImplementation'] = $this->getRepository()->getExpenditures($id);
+        $ApplicationInfo['termsForImplementation'] = $this->getRepository()->getTermsToImplementation($id);
 
 
         return $ApplicationInfo;
