@@ -27,8 +27,7 @@ class UserLkRouter
 
     public function updUserInfo(Request $request, Response $response)
     {
-        $data = $request->getParsedBody();
-        $data['id'] = $request->getAttribute('id');
+        $data = json_decode($request->getParsedBodyParam('user'), true);
         $dataDTO = new UserInfoDTO($data);
         $repository = new UserLkSqlRepository();
         return $response->withJson($repository->updUserInfo($dataDTO));

@@ -32,6 +32,7 @@ class UserLkSqlRepository implements IUserLkSqlRepository
     public function getUserInfo($id): array
     {
         $sql =  "SELECT
+                    u.id,
                     u.name,
                     u.surname,
                     u.patronymic,
@@ -125,9 +126,6 @@ class UserLkSqlRepository implements IUserLkSqlRepository
         $name = $data->getName();
         $surname = $data->getSurname();
         $patronymic = $data->getPatronymic();
-        $position = $data->getPosition();
-        $structuralUnits = $data->getStructuralUnits();
-        $education = $data->getEducation();
         $id = $data->getId();
         $idRole = $data->getRoleId();
         $sql =  "UPDATE 
@@ -135,14 +133,24 @@ class UserLkSqlRepository implements IUserLkSqlRepository
                 SET 
                     name = '$name',
                     surname = '$surname',
-                    patronymic = '$patronymic',
-                    position = '$position',
-                    structuralUnits = '$structuralUnits',
-                    education = '$education'
+                    patronymic = '$patronymic'
                 WHERE id = '$id'";
         $this->getDbCon()->update($sql);
+        $this->updateEmployee($data);
         $this->updRoleUser($idRole, $id);
         return $id;
+    }
+
+    private function updateEmployee(UserInfoDTO $data): int
+    {
+        $sql = "
+            UPDATE hakaton.employees
+            SET position_id = '{$data->getPosition()}',
+                structural_unit_id = '{$data->getStructuralUnits()}',
+                education_id = '{$data->getEducation()}'
+            WHERE `user_id` = '{$data->getId()}'";
+        $this->getDbCon()->update($sql);
+        return (int)$data->getId();
     }
 
     public function addUser(UserInfoDTO $data): int
@@ -205,8 +213,8 @@ class UserLkSqlRepository implements IUserLkSqlRepository
         $sql =  "UPDATE 
                     hakaton.user_to_role
                 SET 
-                    id_role = '$idRole'
-                WHERE id_user = '$idUser'";
+                    id_role = '{$idRole}'
+                WHERE id_user = '{$idUser}'";
         $this->getDbCon()->update($sql);
         return $idUser;
     }

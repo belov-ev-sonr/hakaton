@@ -28,6 +28,7 @@ class UserInfoService
 
     public function getInfoForAdmin($data)
     {
+        $res['id']                  = $data['id'];
         $res['name']                = $data['name'];
         $res['patronymic']          = $data['patronymic'];
         $res['surname']             = $data['surname'];
