@@ -7,6 +7,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use UserLk\Infrastructure\Repositories\UserLkSqlRepository;
 use UserLk\Application\Service\UserInfoService;
+use UserLk\Infrastructure\DTO\UserInfoDTO;
 
 class UserLkRouter
 {
@@ -18,6 +19,33 @@ class UserLkRouter
         $app->get('/getPositionsList',          [$this, 'getPositionsList']);
         $app->get('/getStructuralUnitsList',    [$this, 'getStructuralUnitsList']);
         $app->get('/getEducationList',          [$this, 'getEducationList']);
+        $app->post('/updUserInfo/{id}',         [$this, 'updUserInfo']);
+        $app->post('/addUser',                  [$this, 'addUser']);
+        $app->post('/deactiveteUser/{id}',      [$this, 'deactiveteUser']);
+    }
+
+    public function updUserInfo(Request $request, Response $response)
+    {
+        $data = $request->getParsedBody();
+        $data['id'] = $request->getAttribute('id');
+        $dataDTO = new UserInfoDTO($data);
+        $repository = new UserLkSqlRepository();
+        return $response->withJson($repository->updUserInfo($dataDTO));
+    }
+
+    public function addUser(Request $request, Response $response)
+    {
+        $data = $request->getParsedBody();
+        $dataDTO = new UserInfoDTO($data);
+        $repository = new UserLkSqlRepository();
+        return $response->withJson($repository->updUserInfo($dataDTO));
+    }
+
+    public function deactiveteUser(Request $request, Response $response)
+    {
+        $id = $request->getAttribute('id');
+        $repository = new UserLkSqlRepository();
+        return $response->withJson($repository->updUserInfo($id));
     }
 
     public function getPositionsList(Request $request, Response $response)

@@ -4,6 +4,7 @@
 namespace UserLk\Infrastructure\Repositories;
 
 use Rosseti\Common\MySqlAdapter;
+use UserLk\Infrastructure\DTO\UserInfoDTO;
 
 class UserLkSqlRepository implements IUserLkSqlRepository
 {
@@ -111,5 +112,60 @@ class UserLkSqlRepository implements IUserLkSqlRepository
                     name as education
                 FROM hakaton.education";
         return $this->getDbCon()->select($sql);
+    }
+
+    public function updUserInfo(UserInfoDTO $data): int
+    {
+        $name = $data->getName();
+        $surname = $data->getSurname();
+        $patronymic = $data->getPatronymic();
+        $position = $data->getPosition();
+        $structuralUnits = $data->getStructuralUnits();
+        $education = $data->getEducation();
+        $id = $data->getId();
+        $sql =  "UPDATE 
+                    hakaton.users
+                SET 
+                    name = '$name',
+                    surname = '$surname',
+                    patronymic = '$patronymic',
+                    position = '$position',
+                    structuralUnits = '$structuralUnits',
+                    education = '$education'
+                WHERE id = '$id'";
+        $this->getDbCon()->update($sql);
+        return $id;
+    }
+
+    public function addUser(UserInfoDTO $data): int
+    {
+        $name = $data->getName();
+        $surname = $data->getSurname();
+        $patronymic = $data->getPatronymic();
+        $position = $data->getPosition();
+        $structuralUnits = $data->getStructuralUnits();
+        $education = $data->getEducation();
+        $sql =  "INSERT INTO 
+                    hakaton.users
+                SET 
+                    name = '$name',
+                    surname = '$surname',
+                    patronymic = '$patronymic',
+                    position = '$position',
+                    structuralUnits = '$structuralUnits',
+                    education = '$education'";
+        $this->getDbCon()->insert($sql);
+        return $this->getDbCon()->getLastInsertId();
+    }
+
+    public function deactiveteUser($id): int
+    {
+        $sql =  "UPDATE 
+                    hakaton.users
+                SET 
+                    is_active = 0
+                WHERE id = '$id'";
+        $this->getDbCon()->update($sql);
+        return $id;
     }
 }
