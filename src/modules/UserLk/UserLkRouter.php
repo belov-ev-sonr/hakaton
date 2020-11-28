@@ -43,7 +43,7 @@ class UserLkRouter
         $idUser = $request->getAttribute('id');
         $repository = new UserLkSqlRepository();
         $service = new UserInfoService();
-        $data = $service->getInfo($repository->getUserInfo($idUser)[0]);
+        $data = $service->getInfoForAdmin($repository->getUserInfo($idUser)[0]);
         return $response->withJson($data);
     }
 

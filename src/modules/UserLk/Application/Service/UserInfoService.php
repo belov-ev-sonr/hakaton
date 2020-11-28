@@ -26,6 +26,18 @@ class UserInfoService
         return $res;
     }
 
+    public function getInfoForAdmin($data)
+    {
+        $res['name']                = $data['name'];
+        $res['patronymic']          = $data['patronymic'];
+        $res['surname']             = $data['surname'];
+        $res['position']            = $data['positions'];
+        $res['structuralUnits']     = $data['structural_units'];
+        $res['education']           = $data['education'];
+
+        return $res;
+    }
+
     public function getInfo($data): array
     {
         $date = new DateTime($data['date_of_employment']);
