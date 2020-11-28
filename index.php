@@ -3,6 +3,7 @@
 use Dotenv\Dotenv;
 use Rosseti\Common\DBConnect;
 use Slim\App;
+use UserLk\UserLkRouter;
 use ApplicationCrud\ApplicationRout;
 use OtherRoute\OtherRout;
 
@@ -25,6 +26,9 @@ $app->group('', function () use ($app) {
     $app->group('/other', function () {
         return new OtherRout($this);
     });
+    $app->group('/userLk', function () {
+        return new UserLkRouter($this);
+    });
 });
 try {
     $app->run();
@@ -35,3 +39,4 @@ try {
     print_r($e->getLine());
     print_r($e->getTraceAsString());
 };
+

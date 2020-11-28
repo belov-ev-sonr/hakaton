@@ -26,7 +26,8 @@
     "psr-4": {
       "Rosseti\\Common\\": "src/modules/common",
       "ApplicationCrud\\": "src/modules/ApplicationCrud",
-      "OtherRoute\\": "src/modules/OtherRout"
+      "OtherRoute\\": "src/modules/OtherRout",
+      "UserLk\\": "src/modules/UserLk"
     }
   },
   "scripts": {
