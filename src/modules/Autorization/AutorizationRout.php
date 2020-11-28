@@ -19,6 +19,6 @@ class AutorizationRout
     {
         $data = $request->getParsedBody();
         $repository = new AutorizationSqlRepository();
-        return $response->withJson($repository->getUserHash($data['email'], $data['pass'])['userHash']);
+        return $response->withJson($repository->getUserHash($data['email'], $data['pass']));
     }
 }

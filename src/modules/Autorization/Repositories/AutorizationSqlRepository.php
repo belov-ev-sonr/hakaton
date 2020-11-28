@@ -27,7 +27,11 @@ class AutorizationSqlRepository implements IAutorizationSqlRepository
     public function getUserHash($email, $pass)
     {
         $sql =  "SELECT
-                    u.userHash
+                    u.id,
+                    u.userHash,
+                    u.name `firstName`,
+                    u.surname `secondName`,
+                    u.patronymic
                 FROM hakaton.autorization a
                 JOIN hakaton.users u ON a.user_id = u.id
                 WHERE a.email = '$email'
