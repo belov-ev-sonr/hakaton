@@ -38,9 +38,11 @@ class UserLkSqlRepository implements IUserLkSqlRepository
                     p.id as positions,
                     su.id as structural_units,
                     ed.id as education,
-                    e.date_of_employment
+                    e.date_of_employment,
+                    utr.id_role
                 FROM hakaton.employees e
                 JOIN hakaton.users u ON u.id=e.user_id
+                JOIN hakaton.user_to_role utr ON u.id=utr.id_user
                 JOIN hakaton.positions p ON e.position_id=p.id
                 JOIN hakaton.structural_units su ON su.id=e.structural_unit_id
                 JOIN hakaton.education ed ON ed.id=e.education_id
@@ -123,6 +125,7 @@ class UserLkSqlRepository implements IUserLkSqlRepository
         $structuralUnits = $data->getStructuralUnits();
         $education = $data->getEducation();
         $id = $data->getId();
+        $idRole = $data->getRoleId();
         $sql =  "UPDATE 
                     hakaton.users
                 SET 
@@ -134,6 +137,7 @@ class UserLkSqlRepository implements IUserLkSqlRepository
                     education = '$education'
                 WHERE id = '$id'";
         $this->getDbCon()->update($sql);
+        $this->updRoleUser($idRole, $id);
         return $id;
     }
 
@@ -145,6 +149,7 @@ class UserLkSqlRepository implements IUserLkSqlRepository
         $position = $data->getPosition();
         $structuralUnits = $data->getStructuralUnits();
         $education = $data->getEducation();
+        $roleId = $data->getRoleId();
         $sql =  "INSERT INTO 
                     hakaton.users
                 SET 
@@ -155,7 +160,9 @@ class UserLkSqlRepository implements IUserLkSqlRepository
                     structuralUnits = '$structuralUnits',
                     education = '$education'";
         $this->getDbCon()->insert($sql);
-        return $this->getDbCon()->getLastInsertId();
+        $lastId = $this->getDbCon()->getLastInsertId();
+        $this->addRoleUser($roleId, $lastId);
+        return $lastId;
     }
 
     public function deactiveteUser($id): int
@@ -167,5 +174,36 @@ class UserLkSqlRepository implements IUserLkSqlRepository
                 WHERE id = '$id'";
         $this->getDbCon()->update($sql);
         return $id;
+    }
+
+    public function getRoleList(): array
+    {
+        $sql =  "SELECT
+                    id,
+                    name_role as role
+                FROM hakaton.role";
+        return $this->getDbCon()->select($sql);
+    }
+
+    public function addRoleUser($idRole, $idUser): int
+    {
+        $sql =  "INSERT INTO 
+                    hakaton.user_to_role
+                SET 
+                    id_user = '$idUser',
+                    id_role = '$idRole'";
+        $this->getDbCon()->insert($sql);
+        return $this->getDbCon()->getLastInsertId();
+    }
+
+    public function updRoleUser($idRole, $idUser): int
+    {
+        $sql =  "UPDATE 
+                    hakaton.user_to_role
+                SET 
+                    id_role = '$idRole'
+                WHERE id_user = '$idUser'";
+        $this->getDbCon()->update($sql);
+        return $idUser;
     }
 }

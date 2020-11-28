@@ -20,6 +20,8 @@ class UserInfoDTO
 
     private $id;
 
+    private $roleId;
+
     public function __construct($data)
     {
         $this->name = $data['name'];
@@ -29,6 +31,7 @@ class UserInfoDTO
         $this->structuralUnits = $data['structuralUnits'];
         $this->education = $data['education'];
         $this->id = $data['id'];
+        $this->roleId = $data['id_role'];
     }
 
     /**
@@ -85,6 +88,14 @@ class UserInfoDTO
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoleId()
+    {
+        return $this->roleId;
     }
 
 

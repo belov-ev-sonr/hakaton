@@ -19,6 +19,7 @@ class UserLkRouter
         $app->get('/getPositionsList',          [$this, 'getPositionsList']);
         $app->get('/getStructuralUnitsList',    [$this, 'getStructuralUnitsList']);
         $app->get('/getEducationList',          [$this, 'getEducationList']);
+        $app->get('/getRoleList',               [$this, 'getRoleList']);
         $app->post('/updUserInfo/{id}',         [$this, 'updUserInfo']);
         $app->post('/addUser',                  [$this, 'addUser']);
         $app->post('/deactiveteUser/{id}',      [$this, 'deactiveteUser']);
