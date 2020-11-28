@@ -6,6 +6,7 @@ use Slim\App;
 use UserLk\UserLkRouter;
 use ApplicationCrud\ApplicationRout;
 use OtherRoute\OtherRout;
+use Autorization\AutorizationRout;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/vendor/autoload.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/modules/common/enableCors.php';
@@ -28,6 +29,9 @@ $app->group('', function () use ($app) {
     });
     $app->group('/userLk', function () {
         return new UserLkRouter($this);
+    });
+    $app->group('/autorization', function () {
+        return new AutorizationRout($this);
     });
 });
 try {

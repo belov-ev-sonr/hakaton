@@ -27,6 +27,7 @@
       "Rosseti\\Common\\": "src/modules/common",
       "ApplicationCrud\\": "src/modules/ApplicationCrud",
       "OtherRoute\\": "src/modules/OtherRout",
+      "Autorization\\": "src/modules/Autorization",
       "UserLk\\": "src/modules/UserLk"
     }
   },
