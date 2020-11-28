@@ -49,6 +49,12 @@ class UserLkRouter
         return $response->withJson($repository->updUserInfo($id));
     }
 
+    public function getRoleList(Request $request, Response $response)
+    {
+        $repository = new UserLkSqlRepository();
+        return $response->withJson($repository->getRoleList());
+    }
+
     public function getPositionsList(Request $request, Response $response)
     {
         $repository = new UserLkSqlRepository();

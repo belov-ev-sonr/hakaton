@@ -36,10 +36,14 @@ class UserLkSqlRepository implements IUserLkSqlRepository
                     u.surname,
                     u.patronymic,
                     p.id as positions,
+                    p.name_position as position_name,
                     su.id as structural_units,
+                    su.full_name as structural_units_name,
                     ed.id as education,
+                    ed.name as education_name,
                     e.date_of_employment,
-                    utr.id_role
+                    utr.id_role,
+                    (SELECT r.name_role FROM hakaton.role r WHERE r.id = utr.id_role LIMIT 1) role_name
                 FROM hakaton.employees e
                 JOIN hakaton.users u ON u.id=e.user_id
                 JOIN hakaton.user_to_role utr ON u.id=utr.id_user
@@ -93,7 +97,7 @@ class UserLkSqlRepository implements IUserLkSqlRepository
     {
         $sql =  "SELECT
                     id,
-                    name_position as position
+                    name_position as name
                 FROM hakaton.positions";
         return $this->getDbCon()->select($sql);
     }
@@ -102,7 +106,7 @@ class UserLkSqlRepository implements IUserLkSqlRepository
     {
         $sql =  "SELECT
                     id,
-                    full_name as structuralUnit
+                    full_name as name
                 FROM hakaton.structural_units";
         return $this->getDbCon()->select($sql);
     }
@@ -111,7 +115,7 @@ class UserLkSqlRepository implements IUserLkSqlRepository
     {
         $sql =  "SELECT
                     id,
-                    name as education
+                    name
                 FROM hakaton.education";
         return $this->getDbCon()->select($sql);
     }
@@ -180,7 +184,7 @@ class UserLkSqlRepository implements IUserLkSqlRepository
     {
         $sql =  "SELECT
                     id,
-                    name_role as role
+                    name_role as name
                 FROM hakaton.role";
         return $this->getDbCon()->select($sql);
     }

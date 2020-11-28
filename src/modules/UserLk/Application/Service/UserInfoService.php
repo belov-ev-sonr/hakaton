@@ -32,8 +32,13 @@ class UserInfoService
         $res['patronymic']          = $data['patronymic'];
         $res['surname']             = $data['surname'];
         $res['position']            = $data['positions'];
+        $res['positionName']        = $data['position_name'];
         $res['structuralUnits']     = $data['structural_units'];
+        $res['structuralUnitsName'] = $data['structural_units_name'];
         $res['education']           = $data['education'];
+        $res['educationName']       = $data['education_name'];
+        $res['roleId']              = $data['id_role'];
+        $res['roleName']            = $data['role_name'];
 
         return $res;
     }
