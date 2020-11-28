@@ -1,8 +1,10 @@
 <?php
 
 use Dotenv\Dotenv;
-use Rosatom\Common\DBConnect;
+use Rosseti\Common\DBConnect;
 use Slim\App;
+use ApplicationCrud\ApplicationRout;
+use OtherRoute\OtherRout;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/vendor/autoload.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/modules/common/enableCors.php';
@@ -16,4 +18,20 @@ $app = new App($config);
 DBConnect::init();
 
 
-$app->run();
+$app->group('', function () use ($app) {
+    $app->group('/application', function () {
+        return new ApplicationRout($this);
+    });
+    $app->group('/other', function () {
+        return new OtherRout($this);
+    });
+});
+try {
+    $app->run();
+} catch (Throwable $e) {
+    print_r($e->getMessage());
+    print_r($e->getCode());
+    print_r($e->getFile());
+    print_r($e->getLine());
+    print_r($e->getTraceAsString());
+};
