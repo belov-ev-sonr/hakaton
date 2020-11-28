@@ -15,7 +15,7 @@ interface IUserLkSqlRepository
     public function getEducationList(): array;
     public function updUserInfo(UserInfoDTO $data): int;
     public function addUser(UserInfoDTO $data): int;
-    public function deactiveteUser($id): int;
+    public function changeUserStatus($id, $isActive): int;
     public function getRoleList(): array ;
     public function addRoleUser($idRole, $idUser): int;
     public function updRoleUser($idRole, $idUser): int;

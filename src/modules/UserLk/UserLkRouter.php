@@ -22,7 +22,7 @@ class UserLkRouter
         $app->get('/getRoleList',               [$this, 'getRoleList']);
         $app->post('/updUserInfo/{id}',         [$this, 'updUserInfo']);
         $app->post('/addUser',                  [$this, 'addUser']);
-        $app->post('/deactiveteUser/{id}',      [$this, 'deactiveteUser']);
+        $app->post('/changeUserStatus/{id}',    [$this, 'changeUserStatus']);
     }
 
     public function updUserInfo(Request $request, Response $response)
@@ -41,11 +41,12 @@ class UserLkRouter
         return $response->withJson($repository->updUserInfo($dataDTO));
     }
 
-    public function deactiveteUser(Request $request, Response $response)
+    public function changeUserStatus(Request $request, Response $response)
     {
         $id = $request->getAttribute('id');
+        $isActive = $request->getParsedBody();
         $repository = new UserLkSqlRepository();
-        return $response->withJson($repository->updUserInfo($id));
+        return $response->withJson($repository->changeUserStatus($id, $isActive['change']));
     }
 
     public function getRoleList(Request $request, Response $response)

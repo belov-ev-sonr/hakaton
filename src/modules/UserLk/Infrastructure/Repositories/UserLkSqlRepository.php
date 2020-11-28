@@ -177,12 +177,12 @@ class UserLkSqlRepository implements IUserLkSqlRepository
         return $lastId;
     }
 
-    public function deactiveteUser($id): int
+    public function changeUserStatus($id, $isActive): int
     {
         $sql =  "UPDATE 
                     hakaton.users
                 SET 
-                    is_active = 0
+                    is_active = '$isActive'
                 WHERE id = '$id'";
         $this->getDbCon()->update($sql);
         return $id;
