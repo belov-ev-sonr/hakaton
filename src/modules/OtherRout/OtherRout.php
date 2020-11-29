@@ -63,11 +63,13 @@ class OtherRout
 
     public function createDocument(Request $request, Response $response)
     {
+
         $url = 'src\pythonModules\doc_generator.py';
         $idDoc = $request->getAttribute('idApp');
 
         $path ='C:/Users/Admin/AppData/Local/Programs/Python/Python39/python.exe '.$url .' '. $idDoc;
         $result = shell_exec($path);
+
         return json_decode($result, true);
     }
 }

@@ -59,8 +59,8 @@ class ApplicationSqlRepository implements IApplicationRepository
                 SET
                     short_title = '$shortTitle', 
                     existing_disadvantages = '$existingDisadvantages', 
-                    solution_description = $solutionDescription, 
-                    expected_positive_effect = $expectedPositiveEffect,
+                    solution_description = '$solutionDescription', 
+                    expected_positive_effect = '$expectedPositiveEffect',
                     is_economy = '$isEconomy',
                     date = '$date',
                     category = '$category',
