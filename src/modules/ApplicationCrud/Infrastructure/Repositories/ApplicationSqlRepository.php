@@ -67,15 +67,15 @@ class ApplicationSqlRepository implements IApplicationRepository
                     suggestion = '$suggestion'";
 
         $this->getDbCon()->insert($sql);
-
-        return $this->getDbCon()->getLastInsertId();
+        $lastId = $this->getDbCon()->getLastInsertId();
+        return $lastId;
     }
 
     public function addApplicationToUser($Users, $idApplication): int
     {
         foreach ($Users as $user) {
-            $idUser = $user['userId'];
             $percent = $user['percent'];
+            $idUser = $user['userId'];
 
             $sql = "INSERT INTO
                     hakaton.applications_to_user

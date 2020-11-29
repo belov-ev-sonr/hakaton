@@ -17,7 +17,7 @@ class OtherRout
         $app->get('/getSuperExpert/{id}',       [$this, 'getSuperExpert']);
         $app->get('/getImplementor/{id}',       [$this, 'getImplementor']);
         $app->get('/getSendingProposals/',      [$this, 'getSendingProposals']);
-        $app->get('/createDocument/{idApp}',    [$this, 'createDocument']);
+        $app->post('/createDocument/{idApp}',   [$this, 'createDocument']);
 
     }
 
@@ -63,13 +63,13 @@ class OtherRout
 
     public function createDocument(Request $request, Response $response)
     {
-
+        $format = $request->getParsedBody()['format'];
         $url = 'src\pythonModules\doc_generator.py';
         $idDoc = $request->getAttribute('idApp');
 
         $path ='C:/Users/Admin/AppData/Local/Programs/Python/Python39/python.exe '.$url .' '. $idDoc;
-        $result = shell_exec($path);
+        $result = $_SERVER['DOCUMENT_ROOT'].'\documents\\'.substr(shell_exec($path), 0, -2).'.'.$format;
 
-        return json_decode($result, true);
+        return $response->withJson($result);
     }
 }

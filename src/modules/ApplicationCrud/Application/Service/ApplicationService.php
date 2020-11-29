@@ -34,10 +34,12 @@ class ApplicationService
         $dataDto = new ApplicationDTO($data);
         $idApplication = $this->getRepository()->addApplicationData($dataDto);
 
+        $Expenditures = json_decode($dataDto->getExpenditures(), true);
+        $TermsToImplementation = json_decode($dataDto->getTermsForImplementation(), true);
         $this->getRepository()->addApplicationToDigital($dataDto->getIdDigitalCategory(), $idApplication);
-        $this->getRepository()->addApplicationToUser($dataDto->getUsers(), $idApplication);
-        $this->getRepository()->addExpenditures($dataDto->getExpenditures(), $idApplication);
-        $this->getRepository()->addTermsToImplementation($dataDto->getTermsForImplementation(), $idApplication);
+        $this->getRepository()->addApplicationToUser(json_decode ($dataDto->getUsers(), true), $idApplication);
+        $this->getRepository()->addExpenditures($Expenditures , $idApplication);
+        $this->getRepository()->addTermsToImplementation($TermsToImplementation , $idApplication);
 
         return $idApplication;
     }
