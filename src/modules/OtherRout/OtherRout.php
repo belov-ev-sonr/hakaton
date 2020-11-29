@@ -11,12 +11,13 @@ class OtherRout
 {
     public function __construct(App $app)
     {
-        $app->get('/getDigitalCategory',    [$this, 'getDigitalCategory']);
-        $app->get('/getFirstExpert/{id}',   [$this, 'getFirstExpert']);
-        $app->get('/getSecondExpert/{id}',  [$this, 'getSecondExpert']);
-        $app->get('/getSuperExpert/{id}',   [$this, 'getSuperExpert']);
-        $app->get('/getImplementor/{id}',   [$this, 'getImplementor']);
-        $app->get('/getSendingProposals/',  [$this, 'getSendingProposals']);
+        $app->get('/getDigitalCategory',        [$this, 'getDigitalCategory']);
+        $app->get('/getFirstExpert/{id}',       [$this, 'getFirstExpert']);
+        $app->get('/getSecondExpert/{id}',      [$this, 'getSecondExpert']);
+        $app->get('/getSuperExpert/{id}',       [$this, 'getSuperExpert']);
+        $app->get('/getImplementor/{id}',       [$this, 'getImplementor']);
+        $app->get('/getSendingProposals/',      [$this, 'getSendingProposals']);
+        $app->get('/createDocument/{idApp}',    [$this, 'createDocument']);
 
     }
 
@@ -58,5 +59,15 @@ class OtherRout
     {
         $repository = new OtherSqlRepository();
         return $response->withJson($repository->getSendingProposals());
+    }
+
+    public function createDocument(Request $request, Response $response)
+    {
+        $url = 'src\pythonModules\doc_generator.py';
+        $idDoc = $request->getAttribute('idApp');
+
+        $path ='C:/Users/Admin/AppData/Local/Programs/Python/Python39/python.exe '.$url .' '. $idDoc;
+        $result = shell_exec($path);
+        return json_decode($result, true);
     }
 }

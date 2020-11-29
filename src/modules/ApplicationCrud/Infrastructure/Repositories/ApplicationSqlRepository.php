@@ -51,6 +51,8 @@ class ApplicationSqlRepository implements IApplicationRepository
         $expectedPositiveEffect = $data->getExpectedPositiveEffect();
         $isEconomy = $data->getIsEconomy();
         $date = date("Y-m-d");
+        $category = $data->getCategory();
+        $suggestion = $data->getSuggestion();
 
         $sql =  "INSERT INTO
                     hakaton.application
@@ -60,7 +62,9 @@ class ApplicationSqlRepository implements IApplicationRepository
                     solution_description = $solutionDescription, 
                     expected_positive_effect = $expectedPositiveEffect,
                     is_economy = '$isEconomy',
-                    date = '$date'";
+                    date = '$date',
+                    category = '$category',
+                    suggestion = '$suggestion'";
 
         $this->getDbCon()->insert($sql);
 

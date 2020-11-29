@@ -26,9 +26,15 @@ class ApplicationDTO
 
     private $applicationID;
 
+    private $category;
+
+    private $suggestion;
+
+    private $description;
 
     public function __construct($data)
     {
+
         $this->users = $data['users'];
         $this->shortTitle = $data['shortTitle'];
         $this->existingDisadvantages = $data['existingDisadvantages'];
@@ -39,6 +45,9 @@ class ApplicationDTO
         $this->expenditures = $data['expenditures'];
         $this->termsForImplementation = $data['termsForImplementation'];
         $this->applicationID = $data['applicationID'];
+        $this->description = $data['description'];
+        $this->suggestion = $data['suggestion'];
+        $this->category = $data['category'];
     }
 
     /**
@@ -119,6 +128,30 @@ class ApplicationDTO
     public function getApplicationID()
     {
         return $this->applicationID;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSuggestion()
+    {
+        return $this->suggestion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
 
